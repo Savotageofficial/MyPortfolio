@@ -66,16 +66,8 @@ export default function Hero() {
             href="#contact"
             className="section-label text-ink border-b border-ink hover:text-accent hover:border-accent transition-colors duration-300 pb-px"
           >
-            Get in touch →
+            Get in Contact →
           </a>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="opacity-0-init stagger-5 absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="section-label">Scroll</span>
-        <div className="w-px h-12 bg-ink/30 relative overflow-hidden">
-          <div className="absolute inset-0 bg-ink animate-[lineGrow_2s_ease_infinite]" />
         </div>
       </div>
     </section>

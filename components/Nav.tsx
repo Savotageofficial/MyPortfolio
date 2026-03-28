@@ -28,8 +28,13 @@ export default function Nav() {
     >
       <nav className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="display-heading text-2xl font-light text-ink">
-          MS<span className="text-accent">.</span>
+        <a href="#" className="flex items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="Safwat logo"
+            style={{ height: '52px', width: 'auto' }}
+          />
         </a>
 
         {/* Desktop links */}

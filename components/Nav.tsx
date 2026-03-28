@@ -33,7 +33,7 @@ export default function Nav() {
           <img
             src="/logo.png"
             alt="Safwat logo"
-            style={{ height: '52px', width: 'auto' }}
+            style={{ height: '52px', width: '52px', borderRadius: '50%', objectFit: 'cover' }}
           />
         </a>
 

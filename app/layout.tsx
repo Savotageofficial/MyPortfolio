@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Cursor from '@/components/Cursor'
 import Nav from '@/components/Nav'
 
 export const metadata: Metadata = {
@@ -21,7 +20,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Cursor />
         <Nav />
         {children}
       </body>

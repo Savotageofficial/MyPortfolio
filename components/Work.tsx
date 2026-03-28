@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ExternalLink, Github } from 'lucide-react'
+import { Github } from 'lucide-react'
 
 const projects = [
   {
@@ -14,8 +14,9 @@ const projects = [
     tags: ['Django', 'FastAPI', 'SQLite', 'Pytube', 'HTML/CSS'],
     color: '#1a1a2e',
     textColor: '#e8e0d0',
-    link: '#',
-    github: '#',
+    link: 'https://github.com/Savotageofficial/S-Downloader-test',
+    github: 'https://github.com/Savotageofficial/S-Downloader-test',
+    hasExternalLink: true,
   },
   {
     number: '02',
@@ -27,8 +28,9 @@ const projects = [
     tags: ['Kotlin', 'Java', 'Firebase', 'Real-Time DB'],
     color: '#c84b31',
     textColor: '#f5f0e8',
-    link: '#',
-    github: '#',
+    link: '',
+    github: 'https://github.com/Savotageofficial/capsule',
+    hasExternalLink: false,
   },
 ]
 
@@ -122,19 +124,13 @@ export default function Work() {
                     <div className="flex items-center gap-4">
                       <a
                         href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="p-2 border border-current transition-all duration-300 hover:scale-110"
                         style={hovered === i ? { color: project.textColor, borderColor: project.textColor + '40' } : {}}
                         aria-label="GitHub"
                       >
                         <Github size={16} />
-                      </a>
-                      <a
-                        href={project.link}
-                        className="p-2 border border-current transition-all duration-300 hover:scale-110"
-                        style={hovered === i ? { color: project.textColor, borderColor: project.textColor + '40' } : {}}
-                        aria-label="Live link"
-                      >
-                        <ExternalLink size={16} />
                       </a>
                     </div>
                   </div>

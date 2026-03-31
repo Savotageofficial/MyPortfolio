@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     description: 'Portfolio of Mohamed Safwat Mahdy, a full stack and Android developer.',
     type: 'website',
   },
+  verification: {
+    google: 'C5ghhz6RqdTRPU8NIftsCYi-T0FyoehZsvXiUq_ePvo',
+  },
 }
 
 export default function RootLayout({

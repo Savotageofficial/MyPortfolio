@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Github } from 'lucide-react'
+import { Github, ExternalLink } from 'lucide-react'
 
 const projects = [
   {
@@ -14,7 +14,7 @@ const projects = [
     tags: ['Django', 'FastAPI', 'SQLite', 'Pytube', 'HTML/CSS'],
     color: '#1a1a2e',
     textColor: '#e8e0d0',
-    link: 'https://github.com/Savotageofficial/S-Downloader-test',
+    link: 'https://s-downloader.vercel.app/',
     github: 'https://github.com/Savotageofficial/S-Downloader-test',
     hasExternalLink: true,
   },
@@ -122,6 +122,22 @@ export default function Work() {
                       </h3>
                     </div>
                     <div className="flex items-center gap-4">
+                      {project.hasExternalLink && project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 border border-current transition-all duration-300 hover:scale-110"
+                          style={
+                            hovered === i
+                              ? { color: project.textColor, borderColor: project.textColor + '40' }
+                              : {}
+                          }
+                          aria-label="Visit Website"
+                        >
+                          <ExternalLink size={16} />
+                        </a>
+                      )}
                       <a
                         href={project.github}
                         target="_blank"

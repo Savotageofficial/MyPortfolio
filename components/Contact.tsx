@@ -105,7 +105,6 @@ export default function Contact() {
           <div className="reveal opacity-0-init flex items-center gap-4 mt-10">
             {[
               { icon: Github,   href: 'https://github.com/Savotageofficial',      label: 'GitHub' },
-              { icon: Twitter,  href: '#',                                       label: 'Twitter' },
               { icon: Linkedin, href: 'https://www.linkedin.com/in/mohamed-safwat-169968314/', label: 'LinkedIn' },
             ].map(({ icon: Icon, href, label }) => (
               <a key={label} href={href} aria-label={label}

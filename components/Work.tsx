@@ -14,7 +14,7 @@ const projects = [
     tags: ['Django', 'FastAPI', 'SQLite', 'Pytube', 'HTML/CSS'],
     color: '#1a1a2e',
     textColor: '#e8e0d0',
-    link: 'https://s-downloader.vercel.app/',
+    link: 'https://sdownloader.duckdns.org/',
     github: 'https://github.com/Savotageofficial/S-Downloader-test',
     hasExternalLink: true,
   },

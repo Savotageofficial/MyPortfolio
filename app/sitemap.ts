@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next'
 
+export const dynamic = 'force-static'   // 🔥 ADD THIS
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://safwat.duckdns.org' // 🔁 Replace with your actual domain
+  const baseUrl = 'https://safwat.duckdns.org'
 
   return [
     {

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { Network } from 'lucide-react'
 
 const skills = [
   {
@@ -68,6 +69,14 @@ const skills = [
     name: 'Android',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg',
   },
+  {
+    name: 'Jetpack Compose',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetpackcompose/jetpackcompose-original.svg',
+  },
+  {
+    name: 'Retrofit / REST API integration',
+    icon: '',
+  },
 ]
 
 export default function Skills() {
@@ -115,14 +124,18 @@ export default function Skills() {
               key={skill.name}
               className="reveal opacity-0-init skill-pill"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={skill.icon}
-                alt={skill.name}
-                width={20}
-                height={20}
-                className="skill-pill-icon"
-              />
+              {skill.icon ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={skill.icon}
+                  alt={skill.name}
+                  width={20}
+                  height={20}
+                  className="skill-pill-icon"
+                />
+              ) : (
+                <Network size={20} className="skill-pill-icon" />
+              )}
               <span className="skill-pill-label">{skill.name}</span>
             </div>
           ))}

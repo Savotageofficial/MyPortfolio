@@ -100,9 +100,9 @@ export default function AndroidModel() {
         }
         function configurePin() {
           const canPin = !preference.matches && !disposed && contextAlive;
-          const pinTop = Math.min(0, window.innerHeight - hero.offsetHeight);
+          const pinTop = 0;
           // Keep the original gesture, but require four times the scroll travel.
-          pinDistance = canPin ? Math.max(650, window.innerHeight * 0.95) * 4 : 0;
+          pinDistance = canPin ? Math.max(650, window.innerHeight * 0.95) * 6 : 0;
           sequence.classList.toggle("android-pinned", canPin);
           sequence.style.setProperty("--hero-pin-top", `${pinTop}px`);
           sequence.style.setProperty(

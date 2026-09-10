@@ -1078,25 +1078,6 @@ footer > .section-label {
   }
 }
 
-/* Reserve scroll distance for the greeting, then naturally release the hero. */
-.hero-sequence.android-pinned {
-  height: var(--hero-sequence-height);
-  position: relative;
-}
-.hero-sequence.android-pinned > .hero {
-  position: sticky;
-  top: var(--hero-pin-top, 0px);
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-sequence.android-pinned {
-    height: auto;
-  }
-  .hero-sequence.android-pinned > .hero {
-    position: relative;
-    top: auto;
-  }
-}
-
 /* Restore each project's original hover palette without touching scroll transforms. */
 #project-1 { --project-hover-bg: #14532d; --project-hover-text: #ecfdf5; }
 #project-2 { --project-hover-bg: #1a1a2e; --project-hover-text: #e8e0d0; }

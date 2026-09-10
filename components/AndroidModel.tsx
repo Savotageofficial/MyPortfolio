@@ -62,57 +62,78 @@ export default function AndroidModel() {
         floor.receiveShadow = true;
         scene.add(floor);
         const preference = matchMedia("(prefers-reduced-motion: reduce)");
-        const hero = element.closest("section")!;
-        const sequence = hero.parentElement!;
-        let pinStart = 0,
-          pinDistance = 0;
+        const pointerAvailable = matchMedia(
+          "(hover: hover) and (pointer: fine)",
+        );
         let frame = 0,
-          current = 0,
-          target = 0,
           visible = true,
-          contextAlive = true;
+          contextAlive = true,
+          lastTime = 0;
+        let targetX = 0,
+          targetY = 0,
+          currentX = 0,
+          currentY = 0;
         function draw(time: number) {
           frame = 0;
           if (disposed || !contextAlive || !visible || document.hidden) return;
-          current = preference.matches ? 0 : target;
-          applyAndroidPose(model, current, time / 1000, preference.matches);
+          const dt = Math.min((time - lastTime) / 1000, 0.05);
+          lastTime = time;
+          const follow = 1 - Math.exp(-8 * dt);
+          currentX = preference.matches
+            ? 0
+            : currentX + (targetX - currentX) * follow;
+          currentY = preference.matches
+            ? 0
+            : currentY + (targetY - currentY) * follow;
+          applyAndroidPose(
+            model,
+            currentX,
+            currentY,
+            time / 1000,
+            preference.matches,
+          );
           renderer.render(scene, camera);
           if (!preference.matches) frame = requestAnimationFrame(draw);
         }
         function requestDraw() {
           if (!frame && contextAlive && visible && !document.hidden) {
+            lastTime = performance.now();
             frame = requestAnimationFrame(draw);
           }
         }
-        function update() {
-          target = preference.matches
-            ? 0
-            : Math.max(
-                0,
-                Math.min(
-                  1,
-                  (window.scrollY - pinStart) / Math.max(1, pinDistance),
-                ),
-              );
-          // Scroll position determines the gesture exactly, so release cannot precede its completion.
-          current = target;
+        function resetLook() {
+          targetX = 0;
+          targetY = 0;
           requestDraw();
         }
-        function configurePin() {
-          const canPin = !preference.matches && !disposed && contextAlive;
-          const pinTop = 0;
-          // Keep the original gesture, but require four times the scroll travel.
-          pinDistance = canPin ? Math.max(650, window.innerHeight * 0.95) * 6 : 0;
-          sequence.classList.toggle("android-pinned", canPin);
-          sequence.style.setProperty("--hero-pin-top", `${pinTop}px`);
-          sequence.style.setProperty(
-            "--hero-sequence-height",
-            `${hero.offsetHeight + pinDistance}px`,
+        function movePointer(event: PointerEvent) {
+          if (
+            event.pointerType === "touch" ||
+            !pointerAvailable.matches ||
+            preference.matches
+          )
+            return;
+          const rect = element.getBoundingClientRect();
+          targetX = Math.max(
+            -1,
+            Math.min(
+              1,
+              (event.clientX - (rect.left + rect.width * 0.5)) /
+                (innerWidth * 0.5),
+            ),
           );
-          pinStart =
-            sequence.getBoundingClientRect().top + window.scrollY - pinTop;
-          window.dispatchEvent(new Event("portfolio-layout-change"));
-          update();
+          targetY = Math.max(
+            -1,
+            Math.min(
+              1,
+              (event.clientY - (rect.top + rect.height * 0.4)) /
+                (innerHeight * 0.5),
+            ),
+          );
+          requestDraw();
+        }
+        function leaveWindow(event: PointerEvent) {
+          if (!event.relatedTarget) resetLook();
         }
         function resize() {
           const { width, height } = element.getBoundingClientRect();
@@ -120,15 +141,15 @@ export default function AndroidModel() {
           renderer.setSize(width, height);
           camera.aspect = width / height;
           camera.updateProjectionMatrix();
-          configurePin();
+          requestDraw();
         }
         const sizeObserver = new ResizeObserver(resize);
         sizeObserver.observe(element);
-        sizeObserver.observe(hero);
+
         const intersection = new IntersectionObserver(
           (entries) => {
             visible = entries[0].isIntersecting && contextAlive;
-            if (visible) update();
+            if (visible) requestDraw();
             else {
               cancelAnimationFrame(frame);
               frame = 0;
@@ -144,28 +165,29 @@ export default function AndroidModel() {
           frame = 0;
           visible = false;
           contextAlive = false;
-          sequence.classList.remove("android-pinned");
-          window.dispatchEvent(new Event("portfolio-layout-change"));
+
           setUnavailable(true);
         };
         renderer.domElement.addEventListener("webglcontextlost", contextLost);
-        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("pointermove", movePointer, { passive: true });
+        window.addEventListener("pointerout", leaveWindow);
+        window.addEventListener("blur", resetLook);
         window.addEventListener("resize", resize, { passive: true });
-        document.addEventListener("visibilitychange", update);
-        preference.addEventListener("change", configurePin);
+        document.addEventListener("visibilitychange", resetLook);
+        preference.addEventListener("change", resetLook);
+        pointerAvailable.addEventListener("change", resetLook);
         resize();
         teardown = () => {
           cancelAnimationFrame(frame);
           sizeObserver.disconnect();
           intersection.disconnect();
-          window.removeEventListener("scroll", update);
+          window.removeEventListener("pointermove", movePointer);
+          window.removeEventListener("pointerout", leaveWindow);
+          window.removeEventListener("blur", resetLook);
           window.removeEventListener("resize", resize);
-          document.removeEventListener("visibilitychange", update);
-          preference.removeEventListener("change", configurePin);
-          sequence.classList.remove("android-pinned");
-          sequence.style.removeProperty("--hero-sequence-height");
-          sequence.style.removeProperty("--hero-pin-top");
-          window.dispatchEvent(new Event("portfolio-layout-change"));
+          document.removeEventListener("visibilitychange", resetLook);
+          preference.removeEventListener("change", resetLook);
+          pointerAvailable.removeEventListener("change", resetLook);
           renderer.domElement.removeEventListener(
             "webglcontextlost",
             contextLost,
@@ -192,7 +214,7 @@ export default function AndroidModel() {
         ref={host}
         className="android-canvas"
         role="img"
-        aria-label="Green Android robot gently floating, facing you and waving as you scroll"
+        aria-label="Green Android robot gently floating and looking toward your mouse"
       >
         {unavailable && (
           <img

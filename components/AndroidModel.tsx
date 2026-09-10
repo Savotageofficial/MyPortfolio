@@ -245,7 +245,7 @@ export default function AndroidModel() {
         ref={host}
         className="android-canvas"
         role="img"
-        aria-label="Floating green Android robot looking toward your mouse, beside a blue and yellow three-dimensional Python logo"
+        aria-label="Floating green Android robot looking toward your mouse, beside two intertwined blue and yellow Python-inspired snakes"
       >
         {unavailable && (
           <div className="model-fallbacks">
@@ -284,7 +284,7 @@ export default function AndroidModel() {
           CC BY 3.0
         </a>
         <br />
-        Python logo ·{" "}
+        Snake sculpture inspired by the Python logo ·{" "}
         <a
           href="https://www.python.org/community/logos/"
           target="_blank"

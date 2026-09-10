@@ -1096,3 +1096,38 @@ footer > .section-label {
     top: auto;
   }
 }
+
+/* Restore each project's original hover palette without touching scroll transforms. */
+#project-1 { --project-hover-bg: #14532d; --project-hover-text: #ecfdf5; }
+#project-2 { --project-hover-bg: #1a1a2e; --project-hover-text: #e8e0d0; }
+#project-3 { --project-hover-bg: #c84b31; --project-hover-text: #f5f0e8; }
+#project-4 { --project-hover-bg: #1e3a8a; --project-hover-text: #eff6ff; }
+#project-5 { --project-hover-bg: #b45309; --project-hover-text: #fffbeb; }
+.project-card {
+  transition: background-color .5s, color .5s, border-color .5s;
+}
+.project-card :is(h3, .section-label, .project-body > p, .tags li, .github-link) {
+  transition: color .5s, border-color .5s;
+}
+.project-card:is(:hover, :focus-within) {
+  background-color: var(--project-hover-bg);
+  color: var(--project-hover-text);
+  border-color: var(--project-hover-bg);
+}
+.project-card:is(:hover, :focus-within) h3,
+.project-card:is(:hover, :focus-within) .github-link {
+  color: var(--project-hover-text);
+}
+.project-card:is(:hover, :focus-within) .section-label {
+  color: color-mix(in srgb, var(--project-hover-text) 65%, transparent);
+}
+.project-card:is(:hover, :focus-within) .project-body > p,
+.project-card:is(:hover, :focus-within) .tags li {
+  color: color-mix(in srgb, var(--project-hover-text) 85%, transparent);
+}
+.project-card:is(:hover, :focus-within) :is(.tags li, .github-link) {
+  border-color: color-mix(in srgb, var(--project-hover-text) 30%, transparent);
+}
+.project-card:is(:hover, :focus-within) .github-link:hover {
+  border-color: var(--project-hover-text);
+}

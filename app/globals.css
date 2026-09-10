@@ -1077,3 +1077,22 @@ footer > .section-label {
     animation: none;
   }
 }
+
+/* Reserve scroll distance for the greeting, then naturally release the hero. */
+.hero-sequence.android-pinned {
+  height: var(--hero-sequence-height);
+  position: relative;
+}
+.hero-sequence.android-pinned > .hero {
+  position: sticky;
+  top: var(--hero-pin-top, 0px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-sequence.android-pinned {
+    height: auto;
+  }
+  .hero-sequence.android-pinned > .hero {
+    position: relative;
+    top: auto;
+  }
+}

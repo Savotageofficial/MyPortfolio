@@ -63,36 +63,55 @@ export default function AndroidModel() {
         scene.add(floor);
         const preference = matchMedia("(prefers-reduced-motion: reduce)");
         const hero = element.closest("section")!;
+        const sequence = hero.parentElement!;
+        let pinStart = 0,
+          pinDistance = 0;
         let frame = 0,
           current = 0,
           target = 0,
           visible = true,
-          last = 0;
+          contextAlive = true;
         function draw(time: number) {
           frame = 0;
-          if (disposed || !visible || document.hidden) return;
-          const dt = Math.min((time - last) / 1000, 0.05);
-          last = time;
-          current = preference.matches
-            ? 0
-            : current + (target - current) * (1 - Math.exp(-10 * dt));
-          applyAndroidPose(model, current);
+          if (disposed || !contextAlive || !visible || document.hidden) return;
+          current = preference.matches ? 0 : target;
+          applyAndroidPose(model, current, time / 1000, preference.matches);
           renderer.render(scene, camera);
-          if (Math.abs(target - current) > 0.0001 && !preference.matches)
-            frame = requestAnimationFrame(draw);
+          if (!preference.matches) frame = requestAnimationFrame(draw);
         }
         function requestDraw() {
-          if (!frame && visible && !document.hidden) {
-            last = performance.now();
+          if (!frame && contextAlive && visible && !document.hidden) {
             frame = requestAnimationFrame(draw);
           }
         }
         function update() {
-          const rect = hero.getBoundingClientRect();
           target = preference.matches
             ? 0
-            : Math.max(0, Math.min(1, -rect.top / (rect.height * 0.85)));
+            : Math.max(
+                0,
+                Math.min(
+                  1,
+                  (window.scrollY - pinStart) / Math.max(1, pinDistance),
+                ),
+              );
+          // Scroll position determines the gesture exactly, so release cannot precede its completion.
+          current = target;
           requestDraw();
+        }
+        function configurePin() {
+          const canPin = !preference.matches && !disposed && contextAlive;
+          const pinTop = Math.min(0, window.innerHeight - hero.offsetHeight);
+          pinDistance = canPin ? Math.max(650, window.innerHeight * 0.95) : 0;
+          sequence.classList.toggle("android-pinned", canPin);
+          sequence.style.setProperty("--hero-pin-top", `${pinTop}px`);
+          sequence.style.setProperty(
+            "--hero-sequence-height",
+            `${hero.offsetHeight + pinDistance}px`,
+          );
+          pinStart =
+            sequence.getBoundingClientRect().top + window.scrollY - pinTop;
+          window.dispatchEvent(new Event("portfolio-layout-change"));
+          update();
         }
         function resize() {
           const { width, height } = element.getBoundingClientRect();
@@ -100,13 +119,14 @@ export default function AndroidModel() {
           renderer.setSize(width, height);
           camera.aspect = width / height;
           camera.updateProjectionMatrix();
-          update();
+          configurePin();
         }
         const sizeObserver = new ResizeObserver(resize);
         sizeObserver.observe(element);
+        sizeObserver.observe(hero);
         const intersection = new IntersectionObserver(
           (entries) => {
-            visible = entries[0].isIntersecting;
+            visible = entries[0].isIntersecting && contextAlive;
             if (visible) update();
             else {
               cancelAnimationFrame(frame);
@@ -118,24 +138,33 @@ export default function AndroidModel() {
         intersection.observe(element);
         const contextLost = (event: Event) => {
           event.preventDefault();
-          renderer.domElement.style.display = 'none';
+          renderer.domElement.style.display = "none";
           cancelAnimationFrame(frame);
           frame = 0;
           visible = false;
+          contextAlive = false;
+          sequence.classList.remove("android-pinned");
+          window.dispatchEvent(new Event("portfolio-layout-change"));
           setUnavailable(true);
         };
         renderer.domElement.addEventListener("webglcontextlost", contextLost);
         window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", resize, { passive: true });
         document.addEventListener("visibilitychange", update);
-        preference.addEventListener("change", update);
+        preference.addEventListener("change", configurePin);
         resize();
         teardown = () => {
           cancelAnimationFrame(frame);
           sizeObserver.disconnect();
           intersection.disconnect();
           window.removeEventListener("scroll", update);
+          window.removeEventListener("resize", resize);
           document.removeEventListener("visibilitychange", update);
-          preference.removeEventListener("change", update);
+          preference.removeEventListener("change", configurePin);
+          sequence.classList.remove("android-pinned");
+          sequence.style.removeProperty("--hero-sequence-height");
+          sequence.style.removeProperty("--hero-pin-top");
+          window.dispatchEvent(new Event("portfolio-layout-change"));
           renderer.domElement.removeEventListener(
             "webglcontextlost",
             contextLost,
@@ -162,7 +191,7 @@ export default function AndroidModel() {
         ref={host}
         className="android-canvas"
         role="img"
-        aria-label="Three-dimensional Android robot in rust red, rotating as you scroll"
+        aria-label="Green Android robot gently floating, facing you and waving as you scroll"
       >
         {unavailable && (
           <img

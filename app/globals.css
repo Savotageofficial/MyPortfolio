@@ -989,3 +989,91 @@ footer > .section-label {
     height: 34px;
   }
 }
+
+/* Two identical groups produce a seamless, time-driven ticker. */
+.marquee-track {
+  gap: 0;
+  animation: marquee-loop 32s linear infinite;
+}
+.marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100vw;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 48px;
+  padding-right: 48px;
+}
+@keyframes marquee-loop {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.android-figure {
+  position: absolute;
+  right: 16px;
+  top: 140px;
+  width: 44%;
+  height: 450px;
+  margin: 0;
+  z-index: 1;
+}
+.android-canvas {
+  width: 100%;
+  height: calc(100% - 35px);
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+.android-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.android-credit {
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--muted);
+  padding: 0 14px;
+}
+.android-credit a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.android-fallback {
+  object-fit: contain;
+  opacity: 0.65;
+}
+@media (max-width: 950px) {
+  .android-figure {
+    width: 42%;
+    right: 0;
+    top: 165px;
+    height: 350px;
+  }
+}
+@media (max-width: 680px) {
+  .android-figure {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    height: 320px;
+    margin: 16px 0 -12px;
+  }
+  .marquee-item {
+    gap: 28px;
+    padding-right: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}

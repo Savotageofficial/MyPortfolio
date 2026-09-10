@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import AndroidModel from "./AndroidModel";
 export default function Hero() {
   return (
     <section className="hero container" id="home">
@@ -15,6 +16,7 @@ export default function Hero() {
           <span>Safwat</span>
         </span>
       </h1>
+      <AndroidModel />
       <div className="hero-details">
         <p>
           Full stack developer & Android engineer building production-ready web

@@ -1,58 +1,28 @@
+const technologies = [
+  "Django",
+  "FastAPI",
+  "Python",
+  "Kotlin",
+  "Java",
+  "Android",
+  "Firebase",
+  "JavaScript",
+];
+
 export default function Marquee() {
   return (
-    <div
-      className="marquee"
-      aria-label="Django, FastAPI, Python, Kotlin, Java, Android, Firebase, JavaScript"
-    >
+    <div className="marquee" aria-label={technologies.join(", ")}>
       <div className="marquee-track" aria-hidden="true">
-        <span>Django</span>
-        <i>✦</i>
-        <span>FastAPI</span>
-        <i>✦</i>
-        <span>Python</span>
-        <i>✦</i>
-        <span>Kotlin</span>
-        <i>✦</i>
-        <span>Java</span>
-        <i>✦</i>
-        <span>Android</span>
-        <i>✦</i>
-        <span>Firebase</span>
-        <i>✦</i>
-        <span>JavaScript</span>
-        <i>✦</i>
-        <span>Django</span>
-        <i>✦</i>
-        <span>FastAPI</span>
-        <i>✦</i>
-        <span>Python</span>
-        <i>✦</i>
-        <span>Kotlin</span>
-        <i>✦</i>
-        <span>Java</span>
-        <i>✦</i>
-        <span>Android</span>
-        <i>✦</i>
-        <span>Firebase</span>
-        <i>✦</i>
-        <span>JavaScript</span>
-        <i>✦</i>
-        <span>Django</span>
-        <i>✦</i>
-        <span>FastAPI</span>
-        <i>✦</i>
-        <span>Python</span>
-        <i>✦</i>
-        <span>Kotlin</span>
-        <i>✦</i>
-        <span>Java</span>
-        <i>✦</i>
-        <span>Android</span>
-        <i>✦</i>
-        <span>Firebase</span>
-        <i>✦</i>
-        <span>JavaScript</span>
-        <i>✦</i>
+        {[0, 1].map((copy) => (
+          <div className="marquee-group" key={copy}>
+            {technologies.map((name) => (
+              <span className="marquee-item" key={name}>
+                <span>{name}</span>
+                <i>✦</i>
+              </span>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1112,3 +1112,7 @@ footer > .section-label {
 .project-card:is(:hover, :focus-within) .github-link:hover {
   border-color: var(--project-hover-text);
 }
+
+.model-fallbacks { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; }
+.model-fallbacks img { width: 40%; height: auto; max-height: 180px; }
+

@@ -1,23 +1,59 @@
 export default function Marquee() {
-  const items = [
-    'Django', '✦', 'FastAPI', '✦', 'Python', '✦', 'Kotlin', '✦',
-    'Java', '✦', 'Android', '✦', 'Firebase', '✦', 'JavaScript', '✦',
-    'Django', '✦', 'FastAPI', '✦', 'Python', '✦', 'Kotlin', '✦',
-    'Java', '✦', 'Android', '✦', 'Firebase', '✦', 'JavaScript', '✦',
-  ]
-
   return (
-    <div className="border-y border-ink/10 py-4 overflow-hidden bg-ink text-paper">
-      <div className="flex animate-marquee whitespace-nowrap">
-        {items.map((item, i) => (
-          <span
-            key={i}
-            className={`mx-6 section-label ${item === '✦' ? 'text-accent text-base' : 'text-paper/70'}`}
-          >
-            {item}
-          </span>
-        ))}
+    <div
+      className="marquee"
+      aria-label="Django, FastAPI, Python, Kotlin, Java, Android, Firebase, JavaScript"
+    >
+      <div className="marquee-track" aria-hidden="true">
+        <span>Django</span>
+        <i>✦</i>
+        <span>FastAPI</span>
+        <i>✦</i>
+        <span>Python</span>
+        <i>✦</i>
+        <span>Kotlin</span>
+        <i>✦</i>
+        <span>Java</span>
+        <i>✦</i>
+        <span>Android</span>
+        <i>✦</i>
+        <span>Firebase</span>
+        <i>✦</i>
+        <span>JavaScript</span>
+        <i>✦</i>
+        <span>Django</span>
+        <i>✦</i>
+        <span>FastAPI</span>
+        <i>✦</i>
+        <span>Python</span>
+        <i>✦</i>
+        <span>Kotlin</span>
+        <i>✦</i>
+        <span>Java</span>
+        <i>✦</i>
+        <span>Android</span>
+        <i>✦</i>
+        <span>Firebase</span>
+        <i>✦</i>
+        <span>JavaScript</span>
+        <i>✦</i>
+        <span>Django</span>
+        <i>✦</i>
+        <span>FastAPI</span>
+        <i>✦</i>
+        <span>Python</span>
+        <i>✦</i>
+        <span>Kotlin</span>
+        <i>✦</i>
+        <span>Java</span>
+        <i>✦</i>
+        <span>Android</span>
+        <i>✦</i>
+        <span>Firebase</span>
+        <i>✦</i>
+        <span>JavaScript</span>
+        <i>✦</i>
       </div>
     </div>
-  )
+  );
 }

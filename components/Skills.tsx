@@ -1,146 +1,191 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
-import Image from 'next/image'
-import { Network } from 'lucide-react'
-
-const skills = [
-  {
-    name: 'Next.js',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
-  },
-  {
-    name: 'JavaScript',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-  },
-  {
-    name: 'HTML',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
-  },
-  {
-    name: 'CSS',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
-  },
-  {
-    name: 'Bootstrap',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
-  },
-  {
-    name: 'MySQL',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
-  },
-  {
-    name: 'MongoDB',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
-  },
-  {
-    name: 'Git',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-  },
-  {
-    name: 'GitHub',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
-  },
-  {
-    name: 'FastAPI',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-plain.svg',
-  },
-  {
-    name: 'Python',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-  },
-  {
-    name: 'Django',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg',
-  },
-  {
-    name: 'Kotlin',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg',
-  },
-  {
-    name: 'Java',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
-  },
-  {
-    name: 'Firebase',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
-  },
-  {
-    name: 'Android',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg',
-  },
-  {
-    name: 'Jetpack Compose',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetpackcompose/jetpackcompose-original.svg',
-  },
-  {
-    name: 'Retrofit / REST API integration',
-    icon: '',
-  },
-]
-
+/* eslint-disable @next/next/no-img-element */
 export default function Skills() {
-  const ref = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el, i) => {
-              setTimeout(() => el.classList.add('animate-fade-up'), i * 60)
-            })
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section id="skills" ref={ref} className="py-28 bg-ink text-paper">
-      <div className="px-6 md:px-12 max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-end justify-between mb-16">
-          <div>
-            <div className="reveal opacity-0-init mb-4 flex items-center gap-4">
-              <span className="section-label text-paper/50">04 / Skills</span>
-              <div className="h-px w-24 bg-paper/10" />
-            </div>
-            <h2 className="reveal opacity-0-init display-heading text-[clamp(40px,6vw,72px)] font-light text-paper">
-              Tools of
-              <br />
-              <em className="text-accent not-italic">the trade</em>
-            </h2>
-          </div>
+    <section className="skills container section" id="skills">
+      <div className="section-label rule-label reveal">04 / Skills</div>
+      <h2 className="reveal">
+        Tools of
+        <br />
+        <em>the trade</em>
+      </h2>
+      <div className="skill-grid">
+        <div className="skill reveal">
+          <img
+            src="/assets/nextjs-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Next.js</span>
         </div>
-
-        {/* Skills grid */}
-        <div className="flex flex-wrap gap-3">
-          {skills.map((skill) => (
-            <div
-              key={skill.name}
-              className="reveal opacity-0-init skill-pill"
-            >
-              {skill.icon ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={skill.icon}
-                  alt={skill.name}
-                  width={20}
-                  height={20}
-                  className="skill-pill-icon"
-                />
-              ) : (
-                <Network size={20} className="skill-pill-icon" />
-              )}
-              <span className="skill-pill-label">{skill.name}</span>
-            </div>
-          ))}
+        <div className="skill reveal">
+          <img
+            src="/assets/javascript-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>JavaScript</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/html5-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>HTML</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/css3-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>CSS</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/bootstrap-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Bootstrap</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/mysql-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>MySQL</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/mongodb-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>MongoDB</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/git-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Git</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/github-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>GitHub</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/fastapi-plain.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>FastAPI</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/python-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Python</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/django-plain.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Django</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/kotlin-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Kotlin</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/java-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Java</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/firebase-plain.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Firebase</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/android-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Android</span>
+        </div>
+        <div className="skill reveal">
+          <img
+            src="/assets/jetpackcompose-original.svg"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+          />
+          <span>Jetpack Compose</span>
+        </div>
+        <div className="skill reveal">
+          <span className="api-symbol" aria-hidden="true">
+            ↔
+          </span>
+          <span>Retrofit / REST API integration</span>
         </div>
       </div>
     </section>
-  )
+  );
 }

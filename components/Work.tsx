@@ -1,226 +1,231 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
-import { Github, ExternalLink } from 'lucide-react'
-
-const projects = [
-  {
-    number: '01',
-    title: 'Chess-Pulse',
-    category: 'Android / Mobile',
-    year: '2026',
-    description:
-      'A freelance, production-grade chess app built with Kotlin and Jetpack Compose, powered by Firebase and a Retrofit-based REST API layer.',
-    tags: ['Kotlin', 'Jetpack Compose', 'Firebase', 'Retrofit'],
-    color: '#14532d',
-    textColor: '#ecfdf5',
-    link: '',
-    github: 'https://github.com/Savotageofficial/chess-pulse',
-    hasExternalLink: false,
-  },
-  {
-    number: '02',
-    title: 'SDownloader',
-    category: 'Web / Full Stack',
-    year: '2024',
-    description:
-      'A full-stack YouTube downloader website that lets users download any video as audio or video and choose from all available resolutions. Built with Django, FastAPI, SQLite, and Pytube.',
-    tags: ['Django', 'FastAPI', 'SQLite', 'Pytube', 'HTML/CSS'],
-    color: '#1a1a2e',
-    textColor: '#e8e0d0',
-    link: '',
-    github: 'https://github.com/Savotageofficial/S-Downloader-test',
-    hasExternalLink: false,
-  },
-  {
-    number: '03',
-    title: 'Capsule',
-    category: 'Android / Mobile',
-    year: '2024',
-    description:
-      'A medical assistant and appointment booking Android app with Firebase authentication and real-time chat via Firebase Realtime Database.',
-    tags: ['Kotlin', 'Java', 'Firebase', 'Real-Time DB'],
-    color: '#c84b31',
-    textColor: '#f5f0e8',
-    link: '',
-    github: 'https://github.com/Savotageofficial/capsule',
-    hasExternalLink: false,
-  },
-  {
-    number: '04',
-    title: 'NoxNews',
-    category: 'Android / Mobile',
-    year: '2025',
-    description:
-      'A Kotlin news app that keeps users up to date with the latest headlines through a clean, modern Android experience.',
-    tags: ['Kotlin', 'Android'],
-    color: '#1e3a8a',
-    textColor: '#eff6ff',
-    link: '',
-    github: 'https://github.com/Savotageofficial/noxnews',
-    hasExternalLink: false,
-  },
-  {
-    number: '05',
-    title: 'Appetite',
-    category: 'Android / Mobile',
-    year: '2025',
-    description:
-      'A Kotlin-built Android application demonstrating solid mobile engineering fundamentals and clean UI.',
-    tags: ['Kotlin', 'Android'],
-    color: '#b45309',
-    textColor: '#fffbeb',
-    link: '',
-    github: 'https://github.com/Savotageofficial/appetite',
-    hasExternalLink: false,
-  },
-]
-
+/* eslint-disable @next/next/no-img-element */
 export default function Work() {
-  const ref = useRef<HTMLElement>(null)
-  const [hovered, setHovered] = useState<number | null>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el, i) => {
-              setTimeout(() => el.classList.add('animate-fade-up'), i * 120)
-            })
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section id="work" ref={ref} className="py-28 px-6 md:px-12 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="flex items-end justify-between mb-16">
-        <div>
-          <div className="reveal opacity-0-init mb-4 flex items-center gap-4">
-            <span className="section-label">03 / Work</span>
-            <div className="h-px w-24 bg-ink/10" />
+    <section className="work" id="work" aria-labelledby="work-title">
+      <div className="work-stage container">
+        <div className="work-heading">
+          <div>
+            <div className="section-label rule-label">03 / Work</div>
+            <h2 id="work-title">
+              Selected
+              <br />
+              <em>projects</em>
+            </h2>
           </div>
-          <h2 className="reveal opacity-0-init display-heading text-[clamp(40px,6vw,72px)] font-light">
-            Selected
-            <br />
-            <em className="text-accent not-italic">projects</em>
-          </h2>
-        </div>
-        <span className="reveal opacity-0-init section-label hidden md:block">{projects.length} projects</span>
-      </div>
-
-      {/* Project list */}
-      <div className="space-y-px">
-        {projects.map((project, i) => (
-          <div
-            key={project.number}
-            className="reveal opacity-0-init group border border-ink/10 hover:border-ink transition-colors duration-500 cursor-pointer"
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-            data-hover
-          >
-            <div
-              className="p-8 md:p-10 transition-colors duration-500"
-              style={hovered === i ? { backgroundColor: project.color } : {}}
-            >
-              <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-12">
-                {/* Number + meta */}
-                <div className="flex md:flex-col gap-4 md:gap-1 md:w-32 shrink-0">
-                  <span
-                    className="section-label transition-colors duration-500"
-                    style={hovered === i ? { color: project.textColor + '80' } : {}}
-                  >
-                    {project.number}
-                  </span>
-                  <span
-                    className="section-label transition-colors duration-500"
-                    style={hovered === i ? { color: project.textColor + '80' } : {}}
-                  >
-                    {project.year}
-                  </span>
-                </div>
-
-                {/* Main content */}
-                <div className="flex-1">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                    <div>
-                      <span
-                        className="section-label block mb-2 transition-colors duration-500"
-                        style={hovered === i ? { color: project.textColor + '80' } : {}}
-                      >
-                        {project.category}
-                      </span>
-                      <h3
-                        className="display-heading text-3xl md:text-4xl font-light transition-colors duration-500"
-                        style={hovered === i ? { color: project.textColor } : {}}
-                      >
-                        {project.title}
-                      </h3>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      {project.hasExternalLink && project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 border border-current transition-all duration-300 hover:scale-110"
-                          style={
-                            hovered === i
-                              ? { color: project.textColor, borderColor: project.textColor + '40' }
-                              : {}
-                          }
-                          aria-label="Visit Website"
-                        >
-                          <ExternalLink size={16} />
-                        </a>
-                      )}
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 border border-current transition-all duration-300 hover:scale-110"
-                        style={hovered === i ? { color: project.textColor, borderColor: project.textColor + '40' } : {}}
-                        aria-label="GitHub"
-                      >
-                        <Github size={16} />
-                      </a>
-                    </div>
-                  </div>
-
-                  <p
-                    className="font-light leading-relaxed max-w-xl mb-6 transition-colors duration-500"
-                    style={hovered === i ? { color: project.textColor + 'cc' } : { color: '#8a8070' }}
-                  >
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="section-label px-3 py-1 border transition-colors duration-500"
-                        style={
-                          hovered === i
-                            ? { color: project.textColor + 'cc', borderColor: project.textColor + '30' }
-                            : { borderColor: '#0a0a0a20' }
-                        }
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+          <div className="work-position">
+            <span className="section-label">
+              <span id="current-project">01</span> / 05 PROJECTS
+            </span>
+            <div className="work-controls">
+              <button
+                type="button"
+                id="prev-project"
+                aria-label="Previous project"
+              >
+                ←
+              </button>
+              <button type="button" id="next-project" aria-label="Next project">
+                →
+              </button>
             </div>
           </div>
-        ))}
+        </div>
+        <div className="work-window">
+          <div className="work-track">
+            <article
+              className="project-card"
+              id="project-1"
+              aria-labelledby="project-title-1"
+            >
+              <div className="project-meta section-label">
+                <span>01</span>
+                <span>2026</span>
+              </div>
+              <div className="project-body">
+                <div className="project-top">
+                  <div>
+                    <span className="section-label">Android / Mobile</span>
+                    <h3 id="project-title-1">Chess-Pulse</h3>
+                  </div>
+                  <a
+                    className="github-link"
+                    href="https://github.com/Savotageofficial/chess-pulse"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chess-Pulse on GitHub"
+                  >
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+                <p>
+                  A freelance, production-grade chess app built with Kotlin and
+                  Jetpack Compose, powered by Firebase and a Retrofit-based REST
+                  API layer.
+                </p>
+                <ul className="tags">
+                  <li>Kotlin</li>
+                  <li>Jetpack Compose</li>
+                  <li>Firebase</li>
+                  <li>Retrofit</li>
+                </ul>
+              </div>
+            </article>
+            <article
+              className="project-card"
+              id="project-2"
+              aria-labelledby="project-title-2"
+            >
+              <div className="project-meta section-label">
+                <span>02</span>
+                <span>2024</span>
+              </div>
+              <div className="project-body">
+                <div className="project-top">
+                  <div>
+                    <span className="section-label">Web / Full stack</span>
+                    <h3 id="project-title-2">SDownloader</h3>
+                  </div>
+                  <a
+                    className="github-link"
+                    href="https://github.com/Savotageofficial/S-Downloader-test"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="SDownloader on GitHub"
+                  >
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+                <p>
+                  A full-stack YouTube downloader with audio and video downloads
+                  and a choice of available resolutions. Built with Django,
+                  FastAPI, SQLite, and Pytube.
+                </p>
+                <ul className="tags">
+                  <li>Django</li>
+                  <li>FastAPI</li>
+                  <li>SQLite</li>
+                  <li>Pytube</li>
+                  <li>HTML/CSS</li>
+                </ul>
+              </div>
+            </article>
+            <article
+              className="project-card"
+              id="project-3"
+              aria-labelledby="project-title-3"
+            >
+              <div className="project-meta section-label">
+                <span>03</span>
+                <span>2024</span>
+              </div>
+              <div className="project-body">
+                <div className="project-top">
+                  <div>
+                    <span className="section-label">Android / Mobile</span>
+                    <h3 id="project-title-3">Capsule</h3>
+                  </div>
+                  <a
+                    className="github-link"
+                    href="https://github.com/Savotageofficial/capsule"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Capsule on GitHub"
+                  >
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+                <p>
+                  A medical assistant and appointment booking Android app with
+                  Firebase authentication and real-time chat powered by Firebase
+                  Realtime Database.
+                </p>
+                <ul className="tags">
+                  <li>Kotlin</li>
+                  <li>Java</li>
+                  <li>Firebase</li>
+                  <li>Realtime Database</li>
+                </ul>
+              </div>
+            </article>
+            <article
+              className="project-card"
+              id="project-4"
+              aria-labelledby="project-title-4"
+            >
+              <div className="project-meta section-label">
+                <span>04</span>
+                <span>2025</span>
+              </div>
+              <div className="project-body">
+                <div className="project-top">
+                  <div>
+                    <span className="section-label">Android / Mobile</span>
+                    <h3 id="project-title-4">NoxNews</h3>
+                  </div>
+                  <a
+                    className="github-link"
+                    href="https://github.com/Savotageofficial/noxnews"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="NoxNews on GitHub"
+                  >
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+                <p>
+                  A Kotlin news app that keeps readers up to date with the
+                  latest headlines through a clean, modern Android experience.
+                </p>
+                <ul className="tags">
+                  <li>Kotlin</li>
+                  <li>Android</li>
+                </ul>
+              </div>
+            </article>
+            <article
+              className="project-card"
+              id="project-5"
+              aria-labelledby="project-title-5"
+            >
+              <div className="project-meta section-label">
+                <span>05</span>
+                <span>2025</span>
+              </div>
+              <div className="project-body">
+                <div className="project-top">
+                  <div>
+                    <span className="section-label">Android / Mobile</span>
+                    <h3 id="project-title-5">Appetite</h3>
+                  </div>
+                  <a
+                    className="github-link"
+                    href="https://github.com/Savotageofficial/appetite"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Appetite on GitHub"
+                  >
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+                <p>
+                  A Kotlin-built Android application demonstrating solid mobile
+                  engineering fundamentals and a clean user interface.
+                </p>
+                <ul className="tags">
+                  <li>Kotlin</li>
+                  <li>Android</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div className="work-timeline" aria-hidden="true">
+          <span></span>
+        </div>
+        <a className="section-label skip-work" href="#skills">
+          Continue to skills ↓
+        </a>
       </div>
     </section>
-  )
+  );
 }

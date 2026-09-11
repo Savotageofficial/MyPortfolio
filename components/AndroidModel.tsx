@@ -108,8 +108,6 @@ export default function AndroidModel() {
               !hitPython(event)
             )
               return;
-            event.preventDefault();
-            canvas.focus({ preventScroll: true });
             drag = { id: event.pointerId, x: event.clientX, y: event.clientY };
             canvas.setPointerCapture(event.pointerId);
             canvas.style.cursor = "grabbing";

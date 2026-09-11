@@ -413,6 +413,9 @@ h1 {
   flex: 1;
   min-width: 0;
 }
+.project-logo-round {
+  border-radius: 50%;
+}
 .project-logo {
   display: block;
   width: 112px;

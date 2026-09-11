@@ -41,7 +41,7 @@ export default function Work() {
                 <span>01</span>
                 <span>2026</span>
                 <img
-                  className="project-logo"
+                  className="project-logo project-logo-round"
                   src="/1787908197917.png"
                   alt="Chess-Pulse logo"
                   width="112"

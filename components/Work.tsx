@@ -40,6 +40,15 @@ export default function Work() {
               <div className="project-meta section-label">
                 <span>01</span>
                 <span>2026</span>
+                <img
+                  className="project-logo"
+                  src="/1787908197917.png"
+                  alt="Chess-Pulse logo"
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <div className="project-body">
                 <div className="project-top">
@@ -78,6 +87,15 @@ export default function Work() {
               <div className="project-meta section-label">
                 <span>02</span>
                 <span>2024</span>
+                <img
+                  className="project-logo"
+                  src="/Logo%20(2).png"
+                  alt="S-Downloader logo"
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <div className="project-body">
                 <div className="project-top">
@@ -117,6 +135,15 @@ export default function Work() {
               <div className="project-meta section-label">
                 <span>03</span>
                 <span>2024</span>
+                <img
+                  className="project-logo"
+                  src="/capsule_Logo_transparent.png"
+                  alt="Capsule logo"
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <div className="project-body">
                 <div className="project-top">
@@ -155,6 +182,15 @@ export default function Work() {
               <div className="project-meta section-label">
                 <span>04</span>
                 <span>2025</span>
+                <img
+                  className="project-logo"
+                  src="/picsart250930193036866.png"
+                  alt="NoxNews logo"
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <div className="project-body">
                 <div className="project-top">

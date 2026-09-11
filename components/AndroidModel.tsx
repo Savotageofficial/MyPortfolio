@@ -57,6 +57,106 @@ export default function AndroidModel() {
           python.logo.position.x = 1.15;
           python.logo.scale.setScalar(0.8);
           scene.add(python.logo);
+          const canvas = renderer.domElement;
+          canvas.style.pointerEvents = "auto";
+          canvas.tabIndex = 0;
+          canvas.setAttribute("role", "group");
+          canvas.setAttribute(
+            "aria-label",
+            "Python model: drag with your mouse or use arrow keys to rotate",
+          );
+          const raycaster = new THREE.Raycaster();
+          const pointer = new THREE.Vector2();
+          const dragRotation = new THREE.Quaternion();
+          const rotationStep = new THREE.Quaternion();
+          const rotationAxis = new THREE.Vector3();
+          let rotated = false;
+          let drag: { id: number; x: number; y: number } | null = null;
+          function hitPython(event: PointerEvent) {
+            const rect = canvas.getBoundingClientRect();
+            if (!contextAlive || !rect.width || !rect.height) return false;
+            pointer.set(
+              ((event.clientX - rect.left) / rect.width) * 2 - 1,
+              -((event.clientY - rect.top) / rect.height) * 2 + 1,
+            );
+            scene.updateMatrixWorld(true);
+            camera.updateMatrixWorld(true);
+            raycaster.setFromCamera(pointer, camera);
+            return raycaster.intersectObject(python.logo, true).length > 0;
+          }
+          function rotatePython(dx: number, dy: number) {
+            if (!rotated) dragRotation.copy(python.logo.quaternion);
+            rotated = true;
+            const distance = Math.hypot(dx, dy);
+            if (distance) {
+              // Rotate around screen axes, even after turning the logo upside down.
+              rotationAxis
+                .set(dy, dx, 0)
+                .normalize()
+                .applyQuaternion(camera.quaternion);
+              rotationStep.setFromAxisAngle(rotationAxis, distance * 0.008);
+              dragRotation.premultiply(rotationStep).normalize();
+              python.logo.quaternion.copy(dragRotation);
+            }
+            requestDraw();
+          }
+          function startDrag(event: PointerEvent) {
+            if (
+              event.pointerType === "touch" ||
+              event.button !== 0 ||
+              drag ||
+              !hitPython(event)
+            )
+              return;
+            event.preventDefault();
+            canvas.focus({ preventScroll: true });
+            drag = { id: event.pointerId, x: event.clientX, y: event.clientY };
+            canvas.setPointerCapture(event.pointerId);
+            canvas.style.cursor = "grabbing";
+          }
+          function dragPointer(event: PointerEvent) {
+            if (drag && drag.id === event.pointerId) {
+              if (!(event.buttons & 1)) {
+                endDrag();
+                return;
+              }
+              rotatePython(event.clientX - drag.x, event.clientY - drag.y);
+              drag.x = event.clientX;
+              drag.y = event.clientY;
+            } else if (!drag && event.pointerType !== "touch") {
+              canvas.style.cursor = hitPython(event) ? "grab" : "";
+            }
+          }
+          function endDrag() {
+            const previous = drag;
+            drag = null;
+            if (previous && canvas.hasPointerCapture(previous.id))
+              canvas.releasePointerCapture(previous.id);
+            canvas.style.cursor = "";
+          }
+          function endPointer(event: PointerEvent) {
+            if (drag?.id === event.pointerId) endDrag();
+          }
+          function rotateKey(event: KeyboardEvent) {
+            const directions: Record<string, [number, number]> = {
+              ArrowLeft: [-15, 0],
+              ArrowRight: [15, 0],
+              ArrowUp: [0, -15],
+              ArrowDown: [0, 15],
+            };
+            const delta = directions[event.key];
+            if (!delta) return;
+            event.preventDefault();
+            rotatePython(...delta);
+          }
+          canvas.addEventListener("pointerdown", startDrag);
+          canvas.addEventListener("pointermove", dragPointer);
+          canvas.addEventListener("pointerup", endPointer);
+          canvas.addEventListener("pointercancel", endPointer);
+          canvas.addEventListener("lostpointercapture", endPointer);
+          canvas.addEventListener("keydown", rotateKey);
+          window.addEventListener("blur", endDrag);
+          document.addEventListener("visibilitychange", endDrag);
           scene.add(new THREE.HemisphereLight(0xfff7ea, 0x766151, 2.4));
           const key = new THREE.DirectionalLight(0xfff1dd, 4);
           key.position.set(-3, 5, 5);
@@ -111,6 +211,7 @@ export default function AndroidModel() {
               preference.matches,
             );
             animatePythonModel(python, time / 1000, preference.matches);
+            if (rotated) python.logo.quaternion.copy(dragRotation);
             renderer.render(scene, camera);
             if (!preference.matches) frame = requestAnimationFrame(draw);
           }
@@ -187,6 +288,8 @@ export default function AndroidModel() {
           intersection.observe(element);
           const contextLost = (event: Event) => {
             event.preventDefault();
+            endDrag();
+            canvas.tabIndex = -1;
             renderer.domElement.style.display = "none";
             cancelAnimationFrame(frame);
             frame = 0;
@@ -207,6 +310,15 @@ export default function AndroidModel() {
           pointerAvailable.addEventListener("change", resetLook);
           resize();
           teardown = () => {
+            endDrag();
+            canvas.removeEventListener("pointerdown", startDrag);
+            canvas.removeEventListener("pointermove", dragPointer);
+            canvas.removeEventListener("pointerup", endPointer);
+            canvas.removeEventListener("pointercancel", endPointer);
+            canvas.removeEventListener("lostpointercapture", endPointer);
+            canvas.removeEventListener("keydown", rotateKey);
+            window.removeEventListener("blur", endDrag);
+            document.removeEventListener("visibilitychange", endDrag);
             cancelAnimationFrame(frame);
             sizeObserver.disconnect();
             intersection.disconnect();
@@ -244,7 +356,7 @@ export default function AndroidModel() {
       <div
         ref={host}
         className="android-canvas"
-        role="img"
+        role="group"
         aria-label="Floating green Android robot looking toward your mouse, beside a blue and yellow three-dimensional Python logo"
       >
         {unavailable && (

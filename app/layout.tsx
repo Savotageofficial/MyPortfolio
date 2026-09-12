@@ -1,29 +1,33 @@
-import type { Metadata } from 'next'
-import './globals.css'
-import Nav from '@/components/Nav'
+import type { Metadata } from "next";
+import "./globals.css";
+import Nav from "@/components/Nav";
 
+// Search metadata, icons, and site verification.
 export const metadata: Metadata = {
-  title: 'Mohamed Safwat — Full Stack & Android Developer',
-  description: 'Portfolio of Mohamed Safwat Mahdy, a full stack and Android developer building production-ready web and mobile applications.',
+  title: "Mohamed Safwat — Full Stack & Android Developer",
+  description:
+    "Portfolio of Mohamed Safwat Mahdy, a full stack and Android developer building production-ready web and mobile applications.",
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
   openGraph: {
-    title: 'Mohamed Safwat — Full Stack & Android Developer',
-    description: 'Portfolio of Mohamed Safwat Mahdy, a full stack and Android developer.',
-    type: 'website',
+    title: "Mohamed Safwat — Full Stack & Android Developer",
+    description:
+      "Portfolio of Mohamed Safwat Mahdy, a full stack and Android developer.",
+    type: "website",
   },
   verification: {
-    google: 'C5ghhz6RqdTRPU8NIftsCYi-T0FyoehZsvXiUq_ePvo',
+    google: "C5ghhz6RqdTRPU8NIftsCYi-T0FyoehZsvXiUq_ePvo",
   },
-}
+};
 
+// Shared page shell.
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -32,5 +36,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  )
+  );
 }

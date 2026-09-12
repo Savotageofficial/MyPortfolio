@@ -1,3 +1,4 @@
+// Ticker content.
 const technologies = [
   "Django",
   "FastAPI",
@@ -9,6 +10,7 @@ const technologies = [
   "JavaScript",
 ];
 
+// Duplicate groups keep the automatic loop seamless.
 export default function Marquee() {
   return (
     <div className="marquee" aria-label={technologies.join(", ")}>

@@ -1,5 +1,6 @@
 "use client";
 import { useState, type FormEvent } from "react";
+// EmailJS public configuration.
 const EMAILJS_SERVICE_ID = "service_1tri3ko";
 const EMAILJS_TEMPLATE_ID = "template_ya4rnes";
 const EMAILJS_PUBLIC_KEY = "GcPBSs3DgtvYXQOt4";
@@ -7,6 +8,7 @@ export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
+  // Form validation and delivery.
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === "sending") return;
@@ -35,6 +37,7 @@ export default function Contact() {
     }
   }
   return (
+    // Contact details and message form.
     <section className="contact container section" id="contact">
       <div className="contact-copy">
         <div className="section-label rule-label reveal">05 / Contact</div>

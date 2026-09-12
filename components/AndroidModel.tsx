@@ -24,6 +24,7 @@ export default function AndroidModel() {
           { createPythonModel, animatePythonModel },
         ]) => {
           if (disposed) return;
+          // Renderer setup and WebGL fallback.
           let renderer: InstanceType<typeof THREE.WebGLRenderer>;
           try {
             renderer = new THREE.WebGLRenderer({
@@ -43,6 +44,7 @@ export default function AndroidModel() {
           renderer.toneMapping = THREE.ACESFilmicToneMapping;
           renderer.toneMappingExposure = 1.35;
           element.appendChild(renderer.domElement);
+          // Scene, camera, and model placement.
           const scene = new THREE.Scene();
           const camera = new THREE.PerspectiveCamera(33, 1, 0.1, 30);
           camera.position.set(0, 0.3, 7);
@@ -57,6 +59,7 @@ export default function AndroidModel() {
           python.logo.position.x = 1.15;
           python.logo.scale.setScalar(0.8);
           scene.add(python.logo);
+          // Python hit testing, drag rotation, and keyboard controls.
           const canvas = renderer.domElement;
           canvas.style.pointerEvents = "auto";
           canvas.tabIndex = 0;
@@ -155,6 +158,7 @@ export default function AndroidModel() {
           canvas.addEventListener("keydown", rotateKey);
           window.addEventListener("blur", endDrag);
           document.addEventListener("visibilitychange", endDrag);
+          // Lighting and ground shadows.
           scene.add(new THREE.HemisphereLight(0xfff7ea, 0x766151, 2.4));
           const key = new THREE.DirectionalLight(0xfff1dd, 4);
           key.position.set(-3, 5, 5);
@@ -176,6 +180,7 @@ export default function AndroidModel() {
           floor.position.y = -1.45;
           floor.receiveShadow = true;
           scene.add(floor);
+          // Animation state and reduced-motion preferences.
           const preference = matchMedia("(prefers-reduced-motion: reduce)");
           const pointerAvailable = matchMedia(
             "(hover: hover) and (pointer: fine)",
@@ -188,6 +193,7 @@ export default function AndroidModel() {
             targetY = 0,
             currentX = 0,
             currentY = 0;
+          // Frame rendering and idle motion.
           function draw(time: number) {
             frame = 0;
             if (disposed || !contextAlive || !visible || document.hidden)
@@ -219,6 +225,7 @@ export default function AndroidModel() {
               frame = requestAnimationFrame(draw);
             }
           }
+          // Android mouse tracking.
           function resetLook() {
             targetX = 0;
             targetY = 0;
@@ -253,6 +260,7 @@ export default function AndroidModel() {
           function leaveWindow(event: PointerEvent) {
             if (!event.relatedTarget) resetLook();
           }
+          // Responsive framing and visibility observers.
           function resize() {
             const { width, height } = element.getBoundingClientRect();
             if (!width || !height) return;
@@ -284,6 +292,7 @@ export default function AndroidModel() {
             { rootMargin: "50px" },
           );
           intersection.observe(element);
+          // Context loss and event subscriptions.
           const contextLost = (event: Event) => {
             event.preventDefault();
             endDrag();
@@ -307,6 +316,7 @@ export default function AndroidModel() {
           preference.addEventListener("change", resetLook);
           pointerAvailable.addEventListener("change", resetLook);
           resize();
+          // Release listeners, observers, and GPU resources.
           teardown = () => {
             endDrag();
             canvas.removeEventListener("pointerdown", startDrag);
@@ -350,6 +360,7 @@ export default function AndroidModel() {
     };
   }, []);
   return (
+    // Model canvas, fallback artwork, and attribution.
     <figure className="android-figure">
       <div
         ref={host}

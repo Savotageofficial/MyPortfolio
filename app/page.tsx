@@ -6,6 +6,7 @@ import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import PortfolioMotion from "@/components/PortfolioMotion";
+// Page sections in reading order.
 export default function Home() {
   return (
     <>

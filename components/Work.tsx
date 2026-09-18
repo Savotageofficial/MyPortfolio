@@ -19,12 +19,12 @@ const projects = [
   {
     id: 2,
     year: "2024",
-    category: "Web / Full stack",
+    category: "All Platforms / Full stack", 
     name: "SDownloader",
     href: "https://github.com/Savotageofficial/S-Downloader-test",
     description:
-      "A full-stack YouTube downloader with audio and video downloads and a choice of available resolutions. Built with Django, FastAPI, SQLite, and Pytube.",
-    tags: ["Django", "FastAPI", "SQLite", "Pytube", "HTML/CSS"],
+      "A full-stack YouTube downloader with audio and video downloads and a choice of available resolutions. Built with Django, FastAPI, yt-dlp, Jetpack Compose and youtubedl-android",
+    tags: ["Django", "FastAPI", "yt-dlp", "youtubedl-android" , "Jetpack Compose" , "Next.js"],
     logo: {
       src: "/Logo%20(2).png",
       alt: "S-Downloader logo",

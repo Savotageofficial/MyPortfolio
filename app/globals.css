@@ -551,6 +551,10 @@ h1 {
   color: var(--accent);
   border-color: var(--accent);
 }
+.github-link.project-repository {
+  width: 50px;
+  height: 50px;
+}
 .project-body > p {
   color: var(--muted);
   max-width: 610px;

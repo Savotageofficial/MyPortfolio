@@ -1118,6 +1118,42 @@ footer > .section-label {
     margin-bottom: 16px;
   }
 }
+/* Compact pinned cards keep longer project content inside shorter viewports. */
+.motion.work-motion.work-compact .work-stage {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.motion.work-motion.work-compact .work-heading {
+  margin-bottom: 14px;
+}
+.motion.work-motion.work-compact .work-heading h2 {
+  font-size: 40px;
+}
+.motion.work-motion.work-compact .project-card {
+  padding: 20px;
+  gap: 20px;
+  min-height: 0;
+}
+.motion.work-motion.work-compact .project-meta {
+  min-width: 64px;
+}
+.motion.work-motion.work-compact .project-logo {
+  width: 64px;
+  height: 64px;
+}
+.motion.work-motion.work-compact .project-top,
+.motion.work-motion.work-compact .project-body > p {
+  margin-bottom: 14px;
+}
+.motion.work-motion.work-compact .tags {
+  gap: 6px;
+}
+.motion.work-motion.work-compact .tags li {
+  padding: 4px 8px;
+}
+.motion.work-motion.work-compact .work-timeline {
+  margin-top: 14px;
+}
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -21,7 +21,8 @@ const projects = [
     year: "2024",
     category: "All Platforms / Full stack",
     name: "SDownloader",
-    href: "https://github.com/Savotageofficial/S-Downloader-test",
+    href: "https://github.com/Savotageofficial/S-Downloader",
+    website: "https://s-downloader.duckdns.org/",
     description:
       "A full-stack YouTube downloader with audio and video downloads and a choice of available resolutions. Built with Django, FastAPI, yt-dlp, Jetpack Compose and youtubedl-android.",
     tags: [
@@ -147,22 +148,42 @@ export default function Work() {
                       <span className="section-label">{project.category}</span>
                       <h3 id={`project-title-${project.id}`}>{project.name}</h3>
                     </div>
+                    {project.website && (
+                      <a
+                        className="github-link project-website"
+                        href={project.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${project.name} official website (opens in a new tab)`}
+                        title="Open official website"
+                      >
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    )}
+                  </div>
+                  <p>{project.description}</p>
+                  <div className="project-links">
+                    <ul className="tags">
+                      {project.tags.map((tag) => (
+                        <li key={tag}>{tag}</li>
+                      ))}
+                    </ul>
                     <a
-                      className="github-link"
+                      className="github-link project-repository"
                       href={project.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${project.name} on GitHub`}
+                      aria-label={`${project.name} on GitHub (opens in a new tab)`}
+                      title="View GitHub repository"
                     >
-                      <span aria-hidden="true">↗</span>
+                      <img
+                        src="/assets/github-original.svg"
+                        alt=""
+                        width="22"
+                        height="22"
+                      />
                     </a>
                   </div>
-                  <p>{project.description}</p>
-                  <ul className="tags">
-                    {project.tags.map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
                 </div>
               </article>
             ))}

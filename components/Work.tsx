@@ -6,7 +6,7 @@ const projects = [
     year: "2026",
     category: "Android / Mobile",
     name: "Chess-Pulse",
-    href: "https://github.com/Savotageofficial/chess-pulse",
+    href: "https://github.com/Savotageofficial/ChessPulse",
     description:
       "A freelance, production-grade chess app built with Kotlin and Jetpack Compose, powered by Firebase and a Retrofit-based REST API layer.",
     tags: ["Kotlin", "Jetpack Compose", "Firebase", "Retrofit"],
